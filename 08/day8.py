@@ -35,8 +35,6 @@ with open(THIS_DIR / "input.txt", "r", encoding="utf8") as f:
         sample_s, display_s = line.split(" | ")
         display = [frozenset(string) for string in display_s.split()]
         samples = set([frozenset(string) for string in sample_s.split()] + display)
-        known: dict[int, frozenset[str]] = {}
-        known_inv: dict[frozenset[str], int] = {}
         for check, mapping in ALL_DIGITS.items():
             if not samples.issubset(check):
                 continue
