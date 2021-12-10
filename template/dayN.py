@@ -6,5 +6,13 @@ THIS_DIR = Path(__file__).parent
 FILE = THIS_DIR / "example.txt"
 # FILE = THIS_DIR / "input.txt"
 
-with open(FILE, "r", encoding="utf8") as f:
-    f.read().strip().splitlines()
+
+def main() -> None:
+    with open(FILE, "r", encoding="utf8") as f:
+        lines = f.read().strip().splitlines()
+    for line in lines:
+        pass
+
+
+if __name__ == "__main__":
+    main()
