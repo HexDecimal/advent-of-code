@@ -4,7 +4,17 @@ import numpy as np
 import tcod
 
 
-def main(file: Path) -> (int | str):
+def part1(file: Path) -> (int | str):
+    with open(file, "r", encoding="utf8") as f:
+        (lines,) = f.read().strip().split("\n\n")
+    cost = np.asarray([[int(ch) for ch in row] for row in lines.split("\n")], int)
+    dist = tcod.path.maxarray(cost.shape)
+    dist[0, 0] = 0
+    dist = tcod.path.dijkstra2d(dist, cost, 1)
+    return int(dist[-1, -1])
+
+
+def part2(file: Path) -> (int | str):
     with open(file, "r", encoding="utf8") as f:
         (lines,) = f.read().strip().split("\n\n")
     cost = np.asarray([[int(ch) for ch in row] for row in lines.split("\n")], int)
@@ -16,14 +26,11 @@ def main(file: Path) -> (int | str):
     dist = tcod.path.maxarray(cost.shape)
     dist[0, 0] = 0
     dist = tcod.path.dijkstra2d(dist, cost, 1)
-    print(dist[-1, -1])
     return int(dist[-1, -1])
 
 
-EXPECTED = 315
 if __name__ == "__main__":
     THIS_DIR = Path(__file__).parent
     EXAMPLE_FILE = THIS_DIR / "example.txt"
-    INPUT_FILE = THIS_DIR / "input.txt"
-    if main(EXAMPLE_FILE) == EXPECTED:
-        main(INPUT_FILE)
+    print(part1(EXAMPLE_FILE))  # 40
+    print(part2(EXAMPLE_FILE))  # 315
