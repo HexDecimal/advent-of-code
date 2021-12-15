@@ -8,8 +8,8 @@ import numpy as np
 
 def main(file: Path) -> (int | str):
     with open(file, "r", encoding="utf8") as f:
-        lines = f.read().strip().splitlines()
-    for line in lines:
+        (lines,) = f.read().strip().split("\n\n")
+    for line in lines.split("\n"):
         pass
     return 0
 
