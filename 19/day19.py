@@ -16,7 +16,6 @@ def get_matrix() -> Iterator[Any]:
             matrix[0, xa] = xd
             matrix[1, ya] = yd
             matrix[2, za] = zd
-            print(matrix)
             yield matrix
 
 
@@ -30,17 +29,6 @@ class Scanner:
         self.parent = parent
         self.pos = pos
         self.others: dict[Scanner, XYZ] = {}
-
-    def get_all_beacons(self, pos: XYZ = (0, 0, 0), ignore: Optional[set[Scanner]] = None):
-        if ignore is None:
-            ignore = set()
-        elif self in ignore:
-            return
-        ignore.add(self)
-        sx, sy, sz = pos
-        yield from ((x + sx, y + sy, z + sz) for (x, y, z) in self.beacons)
-        for other, (ox, oy, oz) in self.others.items():
-            yield from other.get_all_beacons((sx + ox, sy + oy, sz + oz), ignore)
 
     def rotations(self) -> Iterator[Scanner]:
         assert not self.others
@@ -84,11 +72,9 @@ def main(file: Path) -> (int | str):
                         relative = {(x - dx, y - dy, z - dz) for x, y, z in scanner2.beacons}
                         matches = len(root.beacons.intersection(relative))
                         if matches >= 12:
-                            print(matches)
-                            print(f"found {(dx, dy, dz)}")
+                            print(f"found {(-dx, -dy, -dz)}")
                             root.others[scanner2] = (-dx, -dy, -dz)
                             root.beacons |= relative
-                            # scanner2.others[root] = (-dx, -dy, -dz)
                             break
                     if scanner2 in root.others:
                         break
