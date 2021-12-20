@@ -22,9 +22,7 @@ def main(file: Path) -> (int | str):
     border = False
 
     for _ in range(50):
-        image_index = scipy.signal.convolve2d(
-            np.pad(image, pad_width=((2, 2), (2, 2)), constant_values=border), CONVOLE_BITS, mode="valid"
-        )
+        image_index = scipy.signal.convolve2d(image, CONVOLE_BITS, mode="full", fillvalue=border)
         image = enhancement[image_index]
         if enhancement[0]:
             border = not border
