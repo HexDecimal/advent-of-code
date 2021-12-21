@@ -1,12 +1,7 @@
 from __future__ import annotations
 
-import functools
-import itertools
 from pathlib import Path
-from typing import Callable, Counter, Mapping, NamedTuple
-
-import aocd  # type: ignore
-import numpy as np
+from typing import Counter, NamedTuple
 
 
 class Dice:
