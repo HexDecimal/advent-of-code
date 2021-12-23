@@ -2,12 +2,8 @@ from __future__ import annotations
 
 import functools
 import heapq
-import itertools
 from pathlib import Path
-from typing import Any, Counter, Iterable, Iterator, NamedTuple
-
-import aocd  # type: ignore
-import numpy as np
+from typing import Any, Iterable, Iterator, NamedTuple
 
 XY = tuple[int, int]
 
@@ -39,14 +35,14 @@ assert get_distance((0, 6), (2, 1)) == 8
 
 class State(NamedTuple):
     hall: tuple[int, int, int, int, int, int, int] = (0, 0, 0, 0, 0, 0, 0)
-    roomA: tuple[int, int] = (1, 1)
-    roomB: tuple[int, int] = (2, 2)
-    roomC: tuple[int, int] = (3, 3)
-    roomD: tuple[int, int] = (4, 4)
+    roomA: tuple[int, int, int, int] = (0, 0, 0, 0)
+    roomB: tuple[int, int, int, int] = (0, 0, 0, 0)
+    roomC: tuple[int, int, int, int] = (0, 0, 0, 0)
+    roomD: tuple[int, int, int, int] = (0, 0, 0, 0)
 
     @classmethod
     def from_coords(cls, coords: Iterable[tuple[int, int]]) -> State:
-        state = [[0, 0, 0, 0, 0, 0, 0], [0, 0], [0, 0], [0, 0], [0, 0]]
+        state = [[0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]
         for i, j in coords:
             state[i][j] = 1
         return cls(tuple(state[0]), tuple(state[1]), tuple(state[2]), tuple(state[3]), tuple(state[4]))  # type: ignore
@@ -54,22 +50,25 @@ class State(NamedTuple):
     def valid_moves(self, start: XY, token: int) -> Iterator[XY]:
         assert self[start[0]][start[1]] == token
         if not start[0]:  # In hall
-            if self[token][1] and self[token][1] != token:
-                return  # Would block another token from exiting.
-            if self[token][0]:
-                return  # Can't enter room.
             if start[1] < token + 2:
                 if any(self.hall[start[1] + 1 : token + 1]):
                     return  # Blocked along hallway.
             elif token + 1 < start[1]:
                 if any(self.hall[token + 1 : start[1]]):
                     return
-            yield token, (1 if not self[token][1] else 0)
+            for i in range(3, -1, -1):
+                t = self[token][i]
+                if t == token:
+                    continue
+                elif t == 0:
+                    yield token, i
+                    return
+                else:
+                    return  # Would block another token from exiting.
         else:  # In room
-            if start[0] == token:
-                if self[token][1] == token:
-                    return  # This token is correct.
-            if start[1] == 1 and self[start[0]][0]:
+            if start[0] == token and all(t == token for t in self[token][start[1] :]):
+                return  # This token is correct.
+            if any(self[start[0]][: start[1]]):
                 return  # Path to hall blocked.
             for i in range(start[0], -1, -1):
                 if self.hall[i] != 0:
@@ -106,6 +105,10 @@ def parse(lines: str) -> State:
     for line in lines.split("\n")[2:4]:
         for i, c in enumerate(line.strip().replace("#", "")):
             starting[i].append({"A": 1, "B": 2, "C": 3, "D": 4}[c])
+    starting[0][1:1] = [4, 4]
+    starting[1][1:1] = [3, 2]
+    starting[2][1:1] = [2, 1]
+    starting[3][1:1] = [1, 3]
     return State(
         (0, 0, 0, 0, 0, 0, 0),
         tuple(starting[0]),  # type: ignore
@@ -115,7 +118,7 @@ def parse(lines: str) -> State:
     )
 
 
-TARGET = State()
+TARGET = State((0, 0, 0, 0, 0, 0, 0), (1, 1, 1, 1), (2, 2, 2, 2), (3, 3, 3, 3), (4, 4, 4, 4))
 
 
 def _test_move(state: State, token: int, start: XY, stop: XY, dist: int) -> State:
@@ -126,7 +129,7 @@ def _test_move(state: State, token: int, start: XY, stop: XY, dist: int) -> Stat
 
 
 def tests() -> None:
-    assert list(State((0, 0, 0, 0, 0, 0, 0), (0, 2), (0, 0), (0, 0), (0, 0)).valid_moves((1, 1), 2)) == [
+    assert list(State((0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 2)).valid_moves((1, 3), 2)) == [
         (0, 1),
         (0, 0),
         (0, 2),
@@ -135,24 +138,24 @@ def tests() -> None:
         (0, 5),
         (0, 6),
     ]
-    state = State.from_coords(State((1, 0, 0, 0, 0, 0, 0), (0, 0), (0, 0), (0, 0), (0, 0)).valid_moves((0, 0), 1))
-    assert state == State((0, 0, 0, 0, 0, 0, 0), (0, 1), (0, 0), (0, 0), (0, 0))
-    assert not list(State((1, 1, 0, 0, 0, 0, 0), (0, 0), (0, 0), (0, 0), (0, 0)).valid_moves((0, 0), 1))
-    assert list(State((1, 1, 0, 0, 0, 0, 0), (0, 0), (0, 0), (0, 0), (0, 0)).valid_moves((0, 1), 1))
-    assert list(State((1, 1, 1, 1, 0, 0, 0), (0, 0), (0, 0), (0, 0), (0, 0)).valid_moves((0, 1), 1))
-    assert list(State((1, 1, 1, 1, 0, 0, 0), (0, 0), (0, 0), (0, 0), (0, 0)).valid_moves((0, 2), 1))
-    assert not list(State((1, 1, 1, 1, 0, 0, 0), (0, 0), (0, 0), (0, 0), (0, 0)).valid_moves((0, 3), 1))
-    state = State.from_coords(State((0, 0, 0, 0, 0, 0, 0), (0, 2), (0, 0), (0, 0), (0, 0)).valid_moves((1, 1), 2))
-    assert state == State((1, 1, 1, 1, 1, 1, 1), (0, 0), (0, 0), (0, 0), (0, 0))
-    state = State.from_coords(State((0, 1, 0, 0, 0, 0, 0), (0, 2), (0, 0), (0, 0), (0, 0)).valid_moves((1, 1), 2))
-    assert state == State((0, 0, 1, 1, 1, 1, 1), (0, 0), (0, 0), (0, 0), (0, 0))
-    assert not list(State((0, 1, 1, 0, 0, 0, 0), (0, 2), (0, 0), (0, 0), (0, 0)).valid_moves((1, 1), 2))
-    assert not list(State((0, 0, 1, 1, 0, 0, 0), (0, 0), (0, 1), (0, 0), (0, 0)).valid_moves((2, 1), 1))
-    assert not list(State((0, 0, 0, 1, 1, 0, 0), (0, 0), (0, 0), (1, 1), (0, 0)).valid_moves((3, 0), 1))
-    assert not list(State((2, 0, 1, 1, 0, 0, 0), (0, 0), (0, 0), (0, 0), (0, 0)).valid_moves((0, 0), 2))
-    assert not list(State((0, 0, 1, 1, 0, 0, 2), (0, 0), (0, 0), (0, 0), (0, 0)).valid_moves((0, 6), 2))
-    assert list(State((0, 1, 2, 1, 1, 0, 0), (0, 0), (0, 0), (0, 0), (0, 0)).valid_moves((0, 2), 2))
-    assert list(State((0, 1, 1, 2, 1, 0, 0), (0, 0), (0, 0), (0, 0), (0, 0)).valid_moves((0, 3), 2))
+    state = State.from_coords(State((1, 0, 0, 0, 0, 0, 0)).valid_moves((0, 0), 1))
+    assert state == State((0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 1))
+    assert not list(State((1, 1, 0, 0, 0, 0, 0)).valid_moves((0, 0), 1))
+    assert list(State((1, 1, 0, 0, 0, 0, 0)).valid_moves((0, 1), 1))
+    assert list(State((1, 1, 1, 1, 0, 0, 0)).valid_moves((0, 1), 1))
+    assert list(State((1, 1, 1, 1, 0, 0, 0)).valid_moves((0, 2), 1))
+    assert not list(State((1, 1, 1, 1, 0, 0, 0)).valid_moves((0, 3), 1))
+    state = State.from_coords(State((0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 2)).valid_moves((1, 3), 2))
+    assert state == State((1, 1, 1, 1, 1, 1, 1))
+    state = State.from_coords(State((0, 1, 0, 0, 0, 0, 0), (0, 0, 0, 2)).valid_moves((1, 3), 2))
+    assert state == State((0, 0, 1, 1, 1, 1, 1))
+    assert not list(State((0, 1, 1, 0, 0, 0, 0), roomA=(0, 2, 2, 2)).valid_moves((1, 1), 2))
+    assert not list(State((0, 0, 1, 1, 0, 0, 0), roomB=(0, 1, 1, 1)).valid_moves((2, 1), 1))
+    assert not list(State((0, 0, 0, 1, 1, 0, 0), roomC=(1, 1, 1, 1)).valid_moves((3, 0), 1))
+    assert not list(State((2, 0, 1, 1, 0, 0, 0)).valid_moves((0, 0), 2))
+    assert not list(State((0, 0, 1, 1, 0, 0, 2)).valid_moves((0, 6), 2))
+    assert list(State((0, 1, 2, 1, 1, 0, 0)).valid_moves((0, 2), 2))
+    assert list(State((0, 1, 1, 2, 1, 0, 0)).valid_moves((0, 3), 2))
 
 
 def main(file: Path, test_example: bool = False) -> (int | str):
@@ -164,27 +167,6 @@ def main(file: Path, test_example: bool = False) -> (int | str):
     best_path: dict[State, State] = {}
     heap.append((0, state_))
     last_cost = -1
-
-    if test_example:
-        state_ = _test_move(state_, 2, (3, 0), (0, 2), 4)
-
-        state_ = _test_move(state_, 3, (2, 0), (0, 3), 2)
-        state_ = _test_move(state_, 3, (0, 3), (3, 0), 2)
-
-        state_ = _test_move(state_, 4, (2, 1), (0, 3), 3)
-        state_ = _test_move(state_, 2, (0, 2), (2, 1), 3)
-
-        state_ = _test_move(state_, 2, (1, 0), (0, 2), 2)
-        state_ = _test_move(state_, 2, (0, 2), (2, 0), 2)
-
-        state_ = _test_move(state_, 4, (4, 0), (0, 4), 2)
-        state_ = _test_move(state_, 1, (4, 1), (0, 5), 3)
-
-        state_ = _test_move(state_, 4, (0, 4), (4, 1), 3)
-        state_ = _test_move(state_, 4, (0, 3), (4, 0), 4)
-
-        state_ = _test_move(state_, 1, (0, 5), (1, 0), 8)
-        assert state_ == TARGET
 
     while heap:
         cost, state = heapq.heappop(heap)
@@ -219,11 +201,11 @@ def main(file: Path, test_example: bool = False) -> (int | str):
     assert False
 
 
-EXPECTED = 12521
+EXPECTED = 44169
 if __name__ == "__main__":
     THIS_DIR = Path(__file__).parent
     EXAMPLE_FILE = THIS_DIR / "example.txt"
     INPUT_FILE = THIS_DIR / "input.txt"
     tests()
     if main(EXAMPLE_FILE, test_example=True) == EXPECTED:
-        aocd.submit(main(INPUT_FILE))
+        main(INPUT_FILE)
