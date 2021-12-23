@@ -158,7 +158,7 @@ def tests() -> None:
     assert list(State((0, 1, 1, 2, 1, 0, 0)).valid_moves((0, 3), 2))
 
 
-def main(file: Path, test_example: bool = False) -> (int | str):
+def main(file: Path) -> (int | str):
     heap = list[HeapItem]()
     with open(file, "r", encoding="utf8") as f:
         state_ = parse(f.read().strip())
@@ -207,5 +207,5 @@ if __name__ == "__main__":
     EXAMPLE_FILE = THIS_DIR / "example.txt"
     INPUT_FILE = THIS_DIR / "input.txt"
     tests()
-    if main(EXAMPLE_FILE, test_example=True) == EXPECTED:
+    if main(EXAMPLE_FILE) == EXPECTED:
         main(INPUT_FILE)
