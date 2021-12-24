@@ -8,15 +8,15 @@ import aocd  # type: ignore
 import numpy as np
 
 
-def main(file: Path) -> (int | str):
+def main(file: Path) -> (int | str | None):
     with open(file, "r", encoding="utf8") as f:
         (lines,) = f.read().strip().split("\n\n")
     for line in lines.split("\n"):
         pass
-    return 0
+    return None
 
 
-EXPECTED = -1
+EXPECTED = 0
 if __name__ == "__main__":
     THIS_DIR = Path(__file__).parent
     EXAMPLE_FILE = THIS_DIR / "example.txt"
