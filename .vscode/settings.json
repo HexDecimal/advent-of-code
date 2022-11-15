@@ -8,5 +8,14 @@
     "files.insertFinalNewline": true,
     "python.formatting.provider": "black",
     "python.linting.mypyEnabled": true,
-    "python.linting.flake8Enabled": true
+    "python.linting.flake8Enabled": true,
+    "python.linting.flake8Args": [
+        "--extend-ignore=F401,D,E501,E203"
+    ],
+    "cSpell.words": [
+        "aocd",
+        "argwhere",
+        "asarray",
+        "scipy"
+    ]
 }
