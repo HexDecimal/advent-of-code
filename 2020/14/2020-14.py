@@ -1,14 +1,11 @@
 from __future__ import annotations
 
-import functools
-import itertools
 import re
-from collections import Counter, defaultdict
+from collections import defaultdict
 from pathlib import Path
 from typing import Iterable, NamedTuple
 
 import aocd  # type: ignore
-import numpy as np
 
 ONES_TABLE = {
     ord("X"): ord("0"),
