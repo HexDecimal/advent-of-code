@@ -10,7 +10,7 @@
     "python.linting.mypyEnabled": true,
     "python.linting.flake8Enabled": true,
     "python.linting.flake8Args": [
-        "--extend-ignore=F401,D,E501,E203,F841"
+        "--extend-ignore=F401,D,E501,E203,F841,F405"
     ],
     "cSpell.words": [
         "aocd",

@@ -2,18 +2,22 @@ from __future__ import annotations
 
 import functools
 import itertools
+import operator
 import re
-from collections import Counter
 from pathlib import Path
+from typing import *  # noqa: F403
 
 import aocd  # type: ignore
 import numpy as np
+from numpy.typing import NDArray
+
+reduce_mulitply = functools.partial(functools.reduce, operator.mul)
 
 
 def main(input: str) -> (int | str | None):
     segments = input.strip().split("\n\n")
-    # lines = np.asarray(segments[0].split(), np.int64)
-    # lines = [int(i) for i in segments[0].split()]
+    # lines = np.array(segments[0].split(","), np.int32)
+    # lines = [int(i) for i in segments[0].split(",")]
     lines = segments[0].split("\n")
     for line in lines:
         pass
@@ -22,6 +26,7 @@ def main(input: str) -> (int | str | None):
 
 EXPECTED = 0
 if __name__ == "__main__":
+    np.seterr("raise")
     THIS_DIR = Path(__file__).parent
     EXAMPLE_FILE = THIS_DIR / "example.txt"
     INPUT_FILE = THIS_DIR / "input.txt"
