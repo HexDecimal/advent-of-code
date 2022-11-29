@@ -11,7 +11,7 @@ import aocd  # type: ignore
 import numpy as np
 from numpy.typing import NDArray
 
-reduce_mulitply = functools.partial(functools.reduce, operator.mul)
+reduce_multiply = functools.partial(functools.reduce, operator.mul)
 
 
 def main(input: str) -> (int | str | None):
