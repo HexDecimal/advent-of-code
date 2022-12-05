@@ -10,13 +10,14 @@ from typing import *  # noqa: F403
 import aocd  # type: ignore
 import numpy as np
 from numpy.typing import NDArray
+from parse import parse
 
-reduce_multiply = functools.partial(functools.reduce, operator.mul)
+from aoc import as_array, as_bool_array, as_ints, parse_ints, reduce_multiply
 
 
 def main(input: str) -> (int | str | None):
     segments = input.strip().split("\n\n")
-    # lines = np.array(segments[0].split(","), np.int32)
+    # array = as_array(segments[0]).astype(np.int32)
     # lines = [int(i) for i in segments[0].split(",")]
     lines = segments[0].split("\n")
     for line in lines:
@@ -26,7 +27,6 @@ def main(input: str) -> (int | str | None):
 
 EXPECTED = 0
 if __name__ == "__main__":
-    np.seterr("raise")
     THIS_DIR = Path(__file__).parent
     EXAMPLE_FILE = THIS_DIR / "example.txt"
     INPUT_FILE = THIS_DIR / "input.txt"

@@ -1,0 +1,19 @@
+[build-system]
+requires = ["flit_core >=3.2,<4"]
+build-backend = "flit_core.buildapi"
+
+[project]
+name = "aoc"
+authors = [{ name = "Kyle Benesch", email = "4b796c65+github@gmail.com" }]
+dynamic = ["version", "description"]
+classifiers = ["License :: OSI Approved :: The Unlicense (Unlicense)"]
+
+[project.urls]
+Home = "https://github.com/HexDecimal/advent-of-code"
+
+[tool.black]
+line-length = 120
+target-version = ['py311']
+
+[tool.mypy]
+python_version = "3.11"

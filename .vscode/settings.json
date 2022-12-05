@@ -16,6 +16,9 @@
         "aocd",
         "argwhere",
         "asarray",
+        "astype",
+        "dtype",
+        "fillvalue",
         "scipy",
         "seterr"
     ]
