@@ -1,30 +1,22 @@
 from __future__ import annotations
 
-import functools
-import itertools
-import operator
-import re
 from pathlib import Path
 from typing import *  # noqa: F403
 
 import aocd  # type: ignore
-import numpy as np
-from aoc import as_array, as_bool_array, as_str_array, ints, reduce_multiply, split_ints
-from numpy.typing import NDArray
-from parse import parse
 
 
 def main(input: str) -> (int | str | None):
     segments = input.rstrip("\n").split("\n\n")
-    # array = as_array(segments[0]).astype(np.int32)
-    # lines = [int(i) for i in segments[0].split(",")]
-    lines = segments[0].split("\n")
-    for line in lines:
-        pass
+    line = segments[0].split("\n")[0]
+    for i in range(len(line)):
+        print(line[i : i + 14])
+        if len(set(line[i : i + 14])) == 14:
+            return i + 14
     return None
 
 
-EXPECTED = 0
+EXPECTED = 19
 if __name__ == "__main__":
     THIS_DIR = Path(__file__).parent
     EXAMPLE_FILE = THIS_DIR / "example.input"

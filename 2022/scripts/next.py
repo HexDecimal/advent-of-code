@@ -17,6 +17,6 @@ if __name__ == "__main__":
         NEXT_DIR.mkdir()
         NEXT_SCRIPT = NEXT_DIR / f"{YEAR}-{day:02d}.py"
         NEXT_SCRIPT.write_bytes(TEMPLATE_SCRIPT.read_bytes())
-        (NEXT_DIR / "example.txt").touch()
+        (NEXT_DIR / "example.input").touch()
         print(f"Wrote out day {day}.")
         break
