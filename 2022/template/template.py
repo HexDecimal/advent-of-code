@@ -17,7 +17,7 @@ from parse import parse
 def main(input: str) -> (int | str | None):
     segments = input.rstrip("\n").split("\n\n")
     # array = as_array(segments[0]).astype(np.int32)
-    # lines = [int(i) for i in segments[0].split(",")]
+    # numbers = ints(segments[0].split(","))
     lines = segments[0].split("\n")
     for line in lines:
         pass
@@ -33,5 +33,6 @@ if __name__ == "__main__":
         INPUT_FILE.write_text(aocd.data, encoding="utf8")
     result = main(EXAMPLE_FILE.read_text(encoding="ansi"))
     if result != EXPECTED:
-        raise SystemExit(f"Excepted {EXPECTED!r} but got {result!r} instead!")
+        print(f"Expected {EXPECTED!r} but got {result!r} instead!")
+        raise SystemExit()
     aocd.submit(main(INPUT_FILE.read_text(encoding="ansi")))
