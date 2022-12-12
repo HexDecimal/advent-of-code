@@ -67,6 +67,11 @@ def as_str_array(segment: str) -> NDArray[np.string_]:
     return np.array([[ch for ch in line] for line in segment.split("\n")], dtype=np.string_)
 
 
+def as_ord_array(segment: str) -> NDArray[np.int32]:
+    """Convert a segment into a 2D array of strings."""
+    return np.array([[ord(ch) for ch in line] for line in segment.split("\n")], dtype=np.int32)
+
+
 def as_bool_array(segment: str, truthy: str = "#") -> NDArray[np.bool8]:
     """Convert a segment into a 2D bool array.  `truthy` one be one or more characters to count as True."""
     return np.array([[ch in truthy for ch in line] for line in segment.split("\n")], dtype=np.bool8)

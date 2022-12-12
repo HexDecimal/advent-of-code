@@ -9,7 +9,7 @@ from typing import *  # noqa: F403
 
 import aocd  # type: ignore
 import numpy as np
-from aoc import as_array, as_bool_array, as_str_array, ints, reduce_multiply, split_ints
+from aoc import as_array, as_bool_array, as_ord_array, ints, reduce_multiply, split_ints
 from numpy.typing import NDArray
 from parse import parse
 

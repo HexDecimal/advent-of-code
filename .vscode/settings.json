@@ -39,6 +39,7 @@
         "astype",
         "dtype",
         "fillvalue",
+        "ndenumerate",
         "scipy",
         "seterr"
     ]
