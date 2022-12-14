@@ -35,4 +35,6 @@ if __name__ == "__main__":
     if result != EXPECTED:
         print(f"Expected {EXPECTED!r} but got {result!r} instead!")
         raise SystemExit()
+    else:
+        print("Example passed.")
     aocd.submit(main(INPUT_FILE.read_text(encoding="ansi")))
