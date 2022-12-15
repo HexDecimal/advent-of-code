@@ -14,7 +14,7 @@ from numpy.typing import NDArray
 
 T = TypeVar("T")
 
-RE_INTS = re.compile(r"(\d+)")
+RE_INTS = re.compile(r"(-?\d+)")
 
 
 @overload
