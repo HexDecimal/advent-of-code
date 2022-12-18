@@ -39,8 +39,10 @@
         "astype",
         "dtype",
         "fillvalue",
+        "iinfo",
         "ndenumerate",
         "scipy",
-        "seterr"
+        "seterr",
+        "tcod"
     ]
 }

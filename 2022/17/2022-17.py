@@ -12,6 +12,7 @@ import numpy as np
 from aoc import as_array, as_bool_array, as_ord_array, ints, reduce_multiply, split_ints
 from numpy.typing import NDArray
 from parse import parse
+import tqdm
 
 SHAPES = [
     as_bool_array(s_)[::-1, :]
@@ -61,7 +62,7 @@ def main(input: str) -> (int | str | None):
             return True
         return (well[y : y + block.shape[0], x : x + block.shape[1]] & block).any()
 
-    for _ in range(1000000000000):
+    for _ in tqdm.trange(1000000000000):
         block = next(next_block)
         x = 2
         y = well_top + 3

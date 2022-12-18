@@ -3,3 +3,4 @@ parse==1.19.0
 scipy==1.9.3
 tcod==13.8.1
 advent-of-code-data
+tqdm
