@@ -74,7 +74,11 @@ def as_ord_array(segment: str) -> NDArray[np.int32]:
 
 def as_bool_array(segment: str, truthy: str = "#") -> NDArray[np.bool8]:
     """Convert a segment into a 2D bool array.  `truthy` one be one or more characters to count as True."""
-    return np.array([[ch in truthy for ch in line] for line in segment.split("\n")], dtype=np.bool8)
+    lines = segment.split("\n")
+    max_width = max(len(line) for line in lines)
+    return np.array(
+        [[ch in truthy for ch in line] + [False] * (max_width - len(line)) for line in lines], dtype=np.bool8
+    )
 
 
 reduce_multiply = functools.partial(functools.reduce, operator.mul)
