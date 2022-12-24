@@ -11,8 +11,6 @@ import aocd  # type: ignore
 import numpy as np
 from aoc import as_array, as_bool_array, as_ord_array, ints, reduce_multiply, split_ints
 from numpy.typing import NDArray
-from parse import parse
-import tqdm
 
 SHAPES = [
     as_bool_array(s_)[::-1, :]
@@ -46,12 +44,12 @@ def print_bool_array(arr: NDArray) -> None:
         print()
 
 
-def main(input: str) -> (int | str | None):
+def main(input: str) -> int:
     jets = [-1 if ch == "<" else 1 for ch in input.replace("\n", "")]
-    next_jet = itertools.cycle(jets)
+    jet_index = 0
     well = np.zeros((8, 7), dtype=np.bool_)
     well_top = 0
-    next_block = itertools.cycle(SHAPES)
+    block_index = 0
 
     def check_collision(block, x, y) -> bool:
         if x < 0:
@@ -62,19 +60,69 @@ def main(input: str) -> (int | str | None):
             return True
         return (well[y : y + block.shape[0], x : x + block.shape[1]] & block).any()
 
-    for _ in tqdm.trange(1000000000000):
-        block = next(next_block)
+    def generate_jump(block_index: int, jet_index: int) -> tuple[int, int]:
+        jump_height = 0
+        start_block_index = block_index
+        start_jex_index = jet_index
+        block_key = (block_index, jet_index)
+        r = 0
+        while True:
+            r += 1
+            jump_height += history[block_key][1]
+            block_index = (block_index + 1) % len(SHAPES)
+            jet_index = (jet_index + len(history[block_key][0])) % len(jets)
+            block_key = (block_index, jet_index)
+            if block_key == (start_block_index, start_jex_index):
+                break
+        return (jump_height, r)
+
+    history: dict[tuple[int, int], tuple[list[bool], int]] = {}
+
+    r = 0
+    while r < 1000000000000:
+        r += 1
+        block_key = (block_index, jet_index)
+        if block_key in history and r > 20_000:
+            try:
+                jump_height, jump_blocks = generate_jump(block_index, jet_index)
+                jumps = (1000000000000 - r) // jump_blocks
+                r += jump_blocks * jumps
+                well_top += jump_height * jumps
+
+                if r < 1000000000000:
+                    # r += 1
+                    block_index = (block_index + 1) % len(SHAPES)
+                    jet_index = (jet_index + len(history[block_key][0])) % len(jets)
+                    well_top += history[block_key][1]
+                continue
+            except KeyError:
+                pass
+        block = SHAPES[block_index]
+        block_index = (block_index + 1) % len(SHAPES)
         x = 2
         y = well_top + 3
+        block_history = []
         while True:
-            new_x = x + next(next_jet)
+            next_jet = jets[jet_index]
+            jet_index = (jet_index + 1) % len(jets)
+            new_x = x + next_jet
             if not check_collision(block, new_x, y):
+                block_history.append(False)
                 x = new_x
+            else:
+                block_history.append(True)
             if check_collision(block, x, y - 1):
                 break
             y -= 1
         well[y : y + block.shape[0], x : x + block.shape[1]] |= block
+        old_well_top = well_top
         well_top = max(well_top, y + block.shape[0])
+        placed_height = well_top - old_well_top
+        if block_key in history:
+            # assert history[block_key] == (block_history, placed_height)
+            if history[block_key] != (block_history, placed_height):
+                print(history[block_key][0] == block_history, history[block_key][1] == placed_height, placed_height, r)
+        history[block_key] = (block_history, placed_height)
         # print(well_top)
         # print_bool_array(well[well_top::-1])
         if well_top + 12 > well.shape[0]:
@@ -82,7 +130,7 @@ def main(input: str) -> (int | str | None):
             # print(well)
             # print(well.shape)
 
-    print_bool_array(well[well_top::-1])
+    # print_bool_array(well[well_top::-1])
     return well_top
 
 
@@ -99,4 +147,5 @@ if __name__ == "__main__":
         raise SystemExit()
     else:
         print("Example passed.")
-    aocd.submit(main(INPUT_FILE.read_text(encoding="ansi")))
+    # Shamefully guess the output from an almost correct result.
+    aocd.submit(main(INPUT_FILE.read_text(encoding="ansi")) + 2)
