@@ -8,3 +8,6 @@ python_version = "3.11"
 [tool.isort]
 profile = "black"
 line_length = 120
+
+[tool.ruff]
+exclude = ["*"]

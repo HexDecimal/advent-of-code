@@ -64,7 +64,7 @@ def as_array(segment: str) -> NDArray[np.int8]:
 
 def as_str_array(segment: str) -> NDArray[np.string_]:
     """Convert a segment into a 2D array of strings."""
-    return np.array([[ch for ch in line] for line in segment.split("\n")], dtype=np.string_)
+    return np.array([list(line) for line in segment.split("\n")], dtype=np.string_)
 
 
 def as_ord_array(segment: str) -> NDArray[np.int32]:
@@ -77,7 +77,8 @@ def as_bool_array(segment: str, truthy: str = "#") -> NDArray[np.bool8]:
     lines = segment.split("\n")
     max_width = max(len(line) for line in lines)
     return np.array(
-        [[ch in truthy for ch in line] + [False] * (max_width - len(line)) for line in lines], dtype=np.bool8
+        [[ch in truthy for ch in line] + [False] * (max_width - len(line)) for line in lines],
+        dtype=bool,
     )
 
 

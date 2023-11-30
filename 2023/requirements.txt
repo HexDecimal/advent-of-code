@@ -1,0 +1,7 @@
+numpy
+scipy
+tcod
+parse
+attrs
+cattrs
+advent-of-code-data
