@@ -82,7 +82,9 @@ def as_bool_array(segment: str, truthy: str = "#") -> NDArray[np.bool8]:
     )
 
 
-reduce_multiply = functools.partial(functools.reduce, operator.mul)
+def reduce_multiply(values: Iterable[T], /) -> T:
+    """Reduce an iterator to a single number by multiplying its values together."""
+    return functools.reduce(operator.mul, values)
 
 
 np.seterr("raise")  # Numpy should default to error checking to avoid missed overflows.
