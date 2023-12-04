@@ -2,7 +2,6 @@
 python_version = "3.12"
 
 [tool.ruff]
-exclude = ["template.py"]
 target-version = "py312"
 # https://docs.astral.sh/ruff/rules/
 select = [
@@ -26,6 +25,7 @@ select = [
     "RUF", # NumPy-specific rules
     "G",   # flake8-logging-format
 ]
+unfixable = ["F401"]
 ignore = [
     "E501",   # line-too-long
     "S101",   # assert
