@@ -27,10 +27,11 @@ select = [
 ]
 unfixable = ["F401"]
 ignore = [
-    "E501",   # line-too-long
-    "S101",   # assert
-    "ANN101", # missing-type-self
-    "ANN102", # missing-type-cls
-    "F405",   # undefined-local-with-import-star-usage
+    "E501",    # line-too-long
+    "S101",    # assert
+    "ANN101",  # missing-type-self
+    "ANN102",  # missing-type-cls
+    "F405",    # undefined-local-with-import-star-usage
+    "PLR2004", # magic-value-comparison
 ]
 line-length = 120
