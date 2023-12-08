@@ -5,3 +5,4 @@ parse
 attrs
 cattrs
 advent-of-code-data
+find-primes
