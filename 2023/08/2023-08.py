@@ -6,7 +6,6 @@ from pathlib import Path
 from typing import *  # noqa: F403
 
 import aocd  # type: ignore
-from aoc import least_common_multiple
 from parse import parse  # type: ignore[import-untyped]
 
 
