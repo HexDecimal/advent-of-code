@@ -5,7 +5,7 @@ from pathlib import Path
 from typing import *  # noqa: F403
 
 import aocd  # type: ignore
-from aoc import combine_factors
+from aoc import least_common_multiple
 from parse import parse  # type: ignore[import-untyped]
 
 
@@ -43,7 +43,7 @@ def main(input: str) -> int | str | None:
     ghosts = {x for x in graph if x.endswith("A")}
     results = sorted(solve_one(graph, directions, g) for g in ghosts)
     print(results)
-    result = combine_factors(results)
+    result = least_common_multiple(results)
     print(result)
     return result
 

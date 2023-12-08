@@ -121,10 +121,12 @@ def factors(n: int, /) -> list[int]:
     raise AssertionError()
 
 
-def combine_factors(numbers: Iterable[int], /) -> int:
-    """Converge a series of numbers by combining their prime factors.
+def least_common_multiple(numbers: Iterable[int], /) -> int:
+    """Returns the least common multiple of a series of integers.
 
-    >>> combine_factors([12, 50])
+    Converges a series of numbers by combining their prime factors.
+
+    >>> least_common_multiple([12, 50])
     300
     """
     combined_factor = Counter[int]()
