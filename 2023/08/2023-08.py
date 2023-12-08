@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import itertools
+import math
 from pathlib import Path
 from typing import *  # noqa: F403
 
@@ -43,7 +44,7 @@ def main(input: str) -> int | str | None:
     ghosts = {x for x in graph if x.endswith("A")}
     results = sorted(solve_one(graph, directions, g) for g in ghosts)
     print(results)
-    result = least_common_multiple(results)
+    result = math.lcm(*results)
     print(result)
     return result
 

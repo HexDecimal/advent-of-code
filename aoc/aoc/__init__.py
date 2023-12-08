@@ -5,7 +5,6 @@ import functools
 import itertools
 import operator
 import re
-from collections import Counter
 from collections.abc import Iterable, Iterator
 from typing import Any, TypeVar, overload
 
@@ -119,26 +118,6 @@ def factors(n: int, /) -> list[int]:
             if n == 1:
                 return result[::-1]
     raise AssertionError()
-
-
-def least_common_multiple(numbers: Iterable[int], /) -> int:
-    """Returns the least common multiple of a series of integers.
-
-    Converges a series of numbers by combining their prime factors.
-
-    >>> least_common_multiple([12, 50])
-    300
-    """
-    combined_factor = Counter[int]()
-    for n in numbers:
-        assert n > 0, n
-        factor = Counter[int](factors(n))
-        for prime, count in factor.items():
-            combined_factor[prime] = max(combined_factor[prime], count)
-    result = 1
-    for prime, count in combined_factor.items():
-        result *= prime**count
-    return result
 
 
 np.seterr("raise")  # Numpy should default to error checking to avoid missed overflows.

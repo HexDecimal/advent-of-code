@@ -4,12 +4,13 @@ import functools
 import itertools
 import operator
 import re
+from math import lcm
 from pathlib import Path
 from typing import *  # noqa: F403
 
 import aocd  # type: ignore
 import numpy as np
-from aoc import as_array, as_bool_array, as_ord_array, ints, least_common_multiple, reduce_multiply, split_ints
+from aoc import as_array, as_bool_array, as_ord_array, ints, reduce_multiply, split_ints
 from numpy.typing import NDArray
 from parse import parse  # type: ignore[import-untyped]
 
