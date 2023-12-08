@@ -8,6 +8,7 @@ authors = [{ name = "Kyle Benesch", email = "4b796c65+github@gmail.com" }]
 dynamic = ["version", "description"]
 classifiers = ["License :: OSI Approved :: The Unlicense (Unlicense)"]
 requires-python = ">=3.12"
+dependencies = ["numpy"]
 
 [project.urls]
 Home = "https://github.com/HexDecimal/advent-of-code"
@@ -16,7 +17,6 @@ Home = "https://github.com/HexDecimal/advent-of-code"
 python_version = "3.12"
 
 [tool.ruff]
-exclude = ["."]
 # https://docs.astral.sh/ruff/rules/
 select = [
     "E",   # pycodestyle

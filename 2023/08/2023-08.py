@@ -5,7 +5,7 @@ from pathlib import Path
 from typing import *  # noqa: F403
 
 import aocd  # type: ignore
-import find_primes  # type: ignore[import-untyped]
+from aoc import combine_factors
 from parse import parse  # type: ignore[import-untyped]
 
 
@@ -43,15 +43,7 @@ def main(input: str) -> int | str | None:
     ghosts = {x for x in graph if x.endswith("A")}
     results = sorted(solve_one(graph, directions, g) for g in ghosts)
     print(results)
-    factors = [Counter[int](find_primes.factor_mpqs(r)) for r in results]
-    combined_factor = Counter[int]()
-    for factor in factors:
-        for k, v in factor.items():
-            combined_factor[k] = max(factor[k], v)
-
-    result = 1
-    for k, v in combined_factor.items():
-        result *= k * v
+    result = combine_factors(results)
     print(result)
     return result
 
