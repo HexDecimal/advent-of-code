@@ -1,7 +1,7 @@
 {
     "editor.formatOnSave": true,
     "editor.codeActionsOnSave": {
-        "source.fixAll": true,
+        "source.fixAll": "always"
     },
     "[plaintext]": {
         "editor.formatOnSave": false,
@@ -40,6 +40,8 @@
         "fillvalue",
         "iinfo",
         "ndenumerate",
+        "ndimage",
+        "popleft",
         "scipy",
         "seterr",
         "tcod"
