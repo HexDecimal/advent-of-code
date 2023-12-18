@@ -5,3 +5,5 @@ parse
 attrs
 cattrs
 advent-of-code-data
+tqdm
+types-tqdm

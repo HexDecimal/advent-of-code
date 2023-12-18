@@ -41,10 +41,12 @@
         "iinfo",
         "ndenumerate",
         "ndimage",
+        "newaxis",
         "popleft",
         "scipy",
         "seterr",
         "setrecursionlimit",
-        "tcod"
+        "tcod",
+        "tqdm"
     ]
 }
