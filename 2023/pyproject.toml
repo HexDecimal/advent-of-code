@@ -33,5 +33,6 @@ ignore = [
     "ANN102",  # missing-type-cls
     "F405",    # undefined-local-with-import-star-usage
     "PLR2004", # magic-value-comparison
+    "PLR0915", # too-many-statements
 ]
 line-length = 120

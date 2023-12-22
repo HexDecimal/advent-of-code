@@ -7,3 +7,4 @@ cattrs
 advent-of-code-data
 tqdm
 types-tqdm
+frozendict
