@@ -8,3 +8,5 @@ advent-of-code-data
 tqdm
 types-tqdm
 frozendict
+sympy
+tcod-ecs

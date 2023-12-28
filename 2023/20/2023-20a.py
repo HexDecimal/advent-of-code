@@ -58,7 +58,7 @@ def main(input: str) -> int | str | None:
                     state.remove(current)
                     queue.extend((current, dest, False) for dest in modules[current])
                     continue
-                else:
+                else:  # noqa: RET507
                     state.add(current)
                     queue.extend((current, dest, True) for dest in modules[current])
                     continue
