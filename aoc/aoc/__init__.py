@@ -1,4 +1,5 @@
 """Personal Advent of Code helper library."""
+
 from __future__ import annotations
 
 import functools
@@ -19,23 +20,19 @@ RE_INTS = re.compile(r"(-?\d+)")
 
 
 @overload
-def split_ints(string: str, delimiters: tuple[str]) -> list[int]:
-    ...
+def split_ints(string: str, delimiters: tuple[str]) -> list[int]: ...
 
 
 @overload
-def split_ints(string: str, delimiters: tuple[str, str]) -> list[list[int]]:
-    ...
+def split_ints(string: str, delimiters: tuple[str, str]) -> list[list[int]]: ...
 
 
 @overload
-def split_ints(string: str, delimiters: tuple[str, str, str]) -> list[list[list[int]]]:
-    ...
+def split_ints(string: str, delimiters: tuple[str, str, str]) -> list[list[list[int]]]: ...
 
 
 @overload
-def split_ints(string: str, delimiters: tuple[str, str, str, str]) -> list[list[list[list[int]]]]:
-    ...
+def split_ints(string: str, delimiters: tuple[str, str, str, str]) -> list[list[list[list[int]]]]: ...
 
 
 def split_ints(string: str, delimiters: tuple[str, ...]) -> int | list[Any]:
