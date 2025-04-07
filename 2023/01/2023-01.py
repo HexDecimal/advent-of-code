@@ -18,8 +18,8 @@ N = {
     "nine": "9",
 }
 
-FIRST = re.compile(rf".*?([0-9]|{"|".join(N.keys())})")
-LAST = re.compile(rf".*([0-9]|{"|".join(N.keys())})")
+FIRST = re.compile(rf".*?([0-9]|{'|'.join(N.keys())})")
+LAST = re.compile(rf".*([0-9]|{'|'.join(N.keys())})")
 
 
 def main(input: str) -> int | str | None:

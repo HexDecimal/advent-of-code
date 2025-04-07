@@ -12,7 +12,7 @@ def main(input: str) -> int | str | None:
     lines = segments[0].split("\n")
     last_card, _ = parse("{:d}{}", lines[-1].removeprefix("Card").strip())
     total = 0
-    my_cards = Counter[int]({i: 1 for i in range(1, last_card + 1)})
+    my_cards = Counter[int](dict.fromkeys(range(1, last_card + 1), 1))
     for line in lines:
         left: str
         right: str
