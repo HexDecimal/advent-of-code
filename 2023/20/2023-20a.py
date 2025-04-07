@@ -43,7 +43,7 @@ def main(input: str) -> int | str | None:
         queue = collections.deque(queue_)
         while queue:
             prev, current, high_pulse = queue.popleft()
-            print(f"""{[' low', 'high'][high_pulse]} -> {current}""")
+            print(f"""{[" low", "high"][high_pulse]} -> {current}""")
             if high_pulse:
                 total_high += 1
             else:

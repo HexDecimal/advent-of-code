@@ -28,7 +28,7 @@ def main(input: str) -> int | str | None:
         return (abs(pos.x - dest[0]) + abs(pos.y - dest[1])) * 1 + dist
 
     start = [Position(0, 0, 1, 0, 0), Position(0, 0, 0, 1, 0)]
-    distances = {pos: 0 for pos in start}
+    distances = dict.fromkeys(start, 0)
     heap = [(heuristic(pos, 0, dest), 0, pos) for pos in start]
 
     def add_pos(pos: Position, here_dist: int) -> None:
