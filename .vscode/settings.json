@@ -1,5 +1,6 @@
 {
     "editor.formatOnSave": true,
+    "editor.defaultFormatter": "tamasfe.even-better-toml",
     "editor.codeActionsOnSave": {
         "source.fixAll": "always"
     },
@@ -19,6 +20,11 @@
         "editor.formatOnSave": true,
         "editor.defaultFormatter": "charliermarsh.ruff"
     },
+    "[toml]": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "tamasfe.even-better-toml",
+    },
+    "evenBetterToml.formatter.alignComments": false,
     "files.associations": {
         "**.in": "input",
         "**.input": "input",
@@ -26,30 +32,33 @@
     "files.trimTrailingWhitespace": true,
     "files.trimFinalNewlines": true,
     "files.insertFinalNewline": true,
-    "isort.args": [
-        "--line-length 120",
-        "--profile black"
-    ],
     "cSpell.words": [
         "aocd",
         "argwhere",
         "asarray",
         "astype",
         "autoupdate",
+        "Benesch",
+        "buildapi",
         "cattrs",
         "dtype",
+        "errmsg",
         "fillvalue",
         "frozendict",
         "iinfo",
+        "mypy",
         "ndenumerate",
         "ndimage",
         "newaxis",
+        "numpy",
         "popleft",
+        "pydocstyle",
         "scipy",
         "seterr",
         "setrecursionlimit",
         "sympy",
         "tcod",
-        "tqdm"
+        "tqdm",
+        "tryceratops"
     ]
 }

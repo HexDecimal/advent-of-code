@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import copy
 import itertools
 from pathlib import Path
 from typing import *  # noqa: F403

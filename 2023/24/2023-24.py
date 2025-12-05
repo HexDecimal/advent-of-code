@@ -1,21 +1,13 @@
 from __future__ import annotations
 
-import functools
 import itertools
-import operator
-import re
-from math import lcm
 from pathlib import Path
 from typing import *  # noqa: F403
 
 import aocd  # type: ignore
-import numpy as np
-from aoc import as_array, as_bool_array, as_ord_array, ints, reduce_multiply, split_ints
-from numpy.typing import NDArray
-from parse import parse  # type: ignore[import-untyped]
+from aoc import ints
 from sympy.geometry.line import Line3D, Ray3D
 from sympy.geometry.point import Point3D
-from sympy.geometry.polygon import Polygon
 from tqdm import tqdm
 
 

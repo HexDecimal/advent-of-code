@@ -60,9 +60,9 @@ def as_array(segment: str) -> NDArray[np.int8]:
     return np.array([list(line) for line in segment.split("\n")], dtype=np.int8)
 
 
-def as_str_array(segment: str) -> NDArray[np.string_]:
+def as_str_array(segment: str) -> NDArray[np.bytes_]:
     """Convert a segment into a 2D array of strings."""
-    return np.array([list(line) for line in segment.split("\n")], dtype=np.string_)
+    return np.array([list(line) for line in segment.split("\n")], dtype=np.bytes_)
 
 
 def as_ord_array(segment: str) -> NDArray[np.int32]:
@@ -70,7 +70,7 @@ def as_ord_array(segment: str) -> NDArray[np.int32]:
     return np.array([[ord(ch) for ch in line] for line in segment.split("\n")], dtype=np.int32)
 
 
-def as_bool_array(segment: str, truthy: str = "#") -> NDArray[np.bool8]:
+def as_bool_array(segment: str, truthy: str = "#") -> NDArray[np.bool_]:
     """Convert a segment into a 2D bool array.  `truthy` one be one or more characters to count as True."""
     lines = segment.split("\n")
     max_width = max(len(line) for line in lines)
@@ -80,7 +80,7 @@ def as_bool_array(segment: str, truthy: str = "#") -> NDArray[np.bool8]:
     )
 
 
-def reduce_multiply(values: Iterable[T], /) -> T:
+def reduce_multiply[T](values: Iterable[T], /) -> T:
     """Reduce an iterator to a single number by multiplying its values together."""
     return functools.reduce(operator.mul, values)
 
@@ -96,7 +96,7 @@ def iter_primes() -> Iterator[int]:
             continue
         known_primes.append(n)
         yield n
-    raise AssertionError()
+    raise AssertionError
 
 
 def factors(n: int, /) -> list[int]:
@@ -114,7 +114,7 @@ def factors(n: int, /) -> list[int]:
             n //= d
             if n == 1:
                 return result[::-1]
-    raise AssertionError()
+    raise AssertionError
 
 
 np.seterr("raise")  # Numpy should default to error checking to avoid missed overflows.

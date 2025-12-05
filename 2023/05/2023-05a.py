@@ -14,7 +14,7 @@ def main(input: str) -> int | str | None:
     mapping: dict[str, list[Any]] = {}
     for segment in segments:
         lines = segment.split("\n")
-        lhs, rhs = parse("{}-to-{} map:", lines.pop(0))
+        lhs, _rhs = parse("{}-to-{} map:", lines.pop(0))
         mapping.setdefault(lhs, [])
 
         for line in lines:
