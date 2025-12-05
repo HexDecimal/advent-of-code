@@ -1,26 +1,26 @@
 [build-system]
-requires=["flit_core >=3.2,<4"]
-build-backend="flit_core.buildapi"
+requires = ["flit_core >=3.2,<4"]
+build-backend = "flit_core.buildapi"
 
 [project]
-name="aoc"
-authors=[{ name="Kyle Benesch", email="4b796c65+github@gmail.com" }]
-dynamic=["version", "description"]
-classifiers=["License :: OSI Approved :: The Unlicense (Unlicense)"]
-requires-python=">=3.14"
-dependencies=["numpy"]
+name = "aoc"
+authors = [{ name = "Kyle Benesch", email = "4b796c65+github@gmail.com" }]
+dynamic = ["version", "description"]
+classifiers = ["License :: OSI Approved :: The Unlicense (Unlicense)"]
+requires-python = ">=3.13"
+dependencies = ["numpy"]
 
 [project.urls]
-Home="https://github.com/HexDecimal/advent-of-code"
+Home = "https://github.com/HexDecimal/advent-of-code"
 
 [tool.ruff]
-line-length=120
+line-length = 120
 
 [tool.ruff.lint] # https://docs.astral.sh/ruff/rules/
-select=[
+select = [
     "ALL", # flake8-logging-format
 ]
-ignore=[
+ignore = [
     "EM", # flake8-errmsg
     "COM", # flake8-commas
     "D", # pydocstyle

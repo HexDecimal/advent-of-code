@@ -1,23 +1,26 @@
 [project]
-name="2025"
-dynamic=["version", "description"]
-requires-python=">=3.14"
+name = "2025"
+dynamic = ["version", "description"]
+requires-python = ">=3.13"
 
 [tool.ruff]
-line-length=120
+line-length = 120
 
 [tool.ruff.lint] # https://docs.astral.sh/ruff/rules/
-select=[
+select = [
     "ALL", # flake8-logging-format
 ]
-unfixable=["F401"]
-ignore=[
+unfixable = ["F401"]
+ignore = [
     "EM", # flake8-errmsg
     "COM", # flake8-commas
     "D", # pydocstyle
     "E501", # line-too-long
     "F405", # undefined-local-with-import-star-usage
+    "INP", # flake8-no-pep420
+    "PLR2004", # magic-value-comparison
     "S101", # assert
+    "T2", # flake8-print
     "TC001", # typing-only-first-party-import
     "TC002", # typing-only-third-party-import
     "TC003", # typing-only-standard-library-import
