@@ -1,40 +1,40 @@
 [tool.mypy]
-python_version = "3.12"
+python_version="3.12"
 
 [tool.ruff]
-line-length = 120
-target-version = "py312"
+line-length=120
+target-version="py312"
 
 [tool.ruff.lint] # https://docs.astral.sh/ruff/rules/
-select = [
-    "E",   # pycodestyle
-    "W",   # pycodestyle
-    "F",   # Pyflakes
-    "I",   # isort
-    "UP",  # pyupgrade
+select=[
+    "E", # pycodestyle
+    "W", # pycodestyle
+    "F", # Pyflakes
+    "I", # isort
+    "UP", # pyupgrade
     "YTT", # flake8-2020
     "ANN", # flake8-annotations
-    "B",   # flake8-bugbear
-    "C4",  # flake8-comprehensions
-    "FA",  # flake8-future-annotations
+    "B", # flake8-bugbear
+    "C4", # flake8-comprehensions
+    "FA", # flake8-future-annotations
     "RET", # flake8-return
     "ICN", # flake8-import-conventions
     "PIE", # flake8-pie
-    "PT",  # flake8-pytest-style
+    "PT", # flake8-pytest-style
     "SIM", # flake8-simplify
     "PTH", # flake8-use-pathlib
-    "PL",  # Pylint
+    "PL", # Pylint
     "RUF", # NumPy-specific rules
-    "G",   # flake8-logging-format
+    "G", # flake8-logging-format
 ]
-unfixable = ["F401"]
-ignore = [
-    "E501",    # line-too-long
-    "S101",    # assert
-    "F405",    # undefined-local-with-import-star-usage
+unfixable=["F401"]
+ignore=[
+    "E501", # line-too-long
+    "S101", # assert
+    "F405", # undefined-local-with-import-star-usage
     "PLR2004", # magic-value-comparison
     "PLR0915", # too-many-statements
 ]
 
 [tool.ruff.lint.per-file-ignores]
-"template/template.py" = ["B007", "F401"]
+"template/template.py"=["B007", "F401"]

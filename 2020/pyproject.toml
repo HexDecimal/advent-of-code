@@ -1,9 +1,9 @@
 [tool.black]
-line-length = 120
-target-version = ['py311']
+line-length=120
+target-version=['py311']
 
 [tool.mypy]
-python_version = "3.11"
+python_version="3.11"
 
 [tool.ruff]
-exclude = ["*"]
+exclude=["*"]
